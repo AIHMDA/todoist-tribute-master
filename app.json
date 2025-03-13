@@ -1,0 +1,10 @@
+{
+  "name": "Tudu",
+  "description": "A todoist clone",
+  "repository": "https://github.com/rohitpaulk/todoist-tribute",
+  "keywords": ["todoist", "todo", "tudu"],
+  "scripts": {
+    "postdeploy": "bundle exec rake db:migrate db:seed"
+  },
+  "addons": ["heroku-postgresql"]
+}

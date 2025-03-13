@@ -1,0 +1,43 @@
+.color-chooser {
+    display: inline;
+}
+
+.color-chooser .color-chooser-toggle {
+    display: inline-block;
+    margin-right: 8px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.color-chooser .color-chooser-dropdown {
+    display: block;
+    position: absolute;
+    top: 40px;
+    left: -1px;
+    width: 182px;
+    height: 179px;
+    background-color: white;
+    border: 1px solid $color-very-light-gray;
+    box-shadow: 0px 1px 3px 0px $color-light-gray;
+    border-radius: 4px;
+    z-index: 3;
+}
+
+.color-chooser .color-chooser-dropdown .color-list {
+    padding: 10px;
+}
+
+.color-chooser .color-chooser-dropdown .color-list-item {
+    &:hover {
+        cursor: pointer;
+        box-shadow: 0px 0px 10px 0px $color-light-gray;
+    }
+
+    border-radius: 2px;
+    display: inline-block;
+    margin: 4px 7px;
+    width: 18px;
+    height: 20px;
+}

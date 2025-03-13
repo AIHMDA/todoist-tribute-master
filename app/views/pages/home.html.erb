@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tudu</title>
+        <%= csrf_meta_tags %>
+        <meta property="apiUrl" content="<%= root_url %>" />
+    </head>
+
+    <body>
+        <div id="vue-root">
+            <div class="page-background">
+                <div class="top-bar">
+                    <div class="top-bar-inner">
+                        <h1>TUDU</h1>
+                    </div>
+                </div>
+                <div class="all-holder">
+                    <div class="left-menu">
+                        <div class="view-list-container">
+                            <view-list
+                                :inbox-project="$store.getters.inboxProject"
+                                :inbox-project-task-count="$store.getters.inboxProjectTaskCount"
+                                :selected-project-id="$store.getters.activeProjectId">
+                            </view-list>
+                        </div>
+                        <tab-switcher :tabs="['Projects', 'Labels', 'Filters']">
+                            <div class="resource-list-container project-list-container" slot="Projects">
+                                <project-list
+                                    :projects="$store.getters.projectsWithoutInbox"
+                                    :selected-project="$store.getters.activeProject"
+                                    :project-task-counts="$store.getters.projectTaskCounts">
+                                </project-list>
+                            </div>
+
+                            <div class="resource-list-container label-list-container" slot="Labels">
+                                <label-list
+                                    :labels="$store.state.labels"
+                                    :selected-label="$store.getters.activeLabel"
+                                    :label-task-counts="$store.getters.labelTaskCounts">
+                                </label-list>
+                            </div>
+                            <div class="filters-list-container" slot="Filters">
+                                <div style="padding: 20px">
+                                    Not implemented yet
+                                </div>
+                            </div>
+                        </tab-switcher>
+
+                    </div><div class="content">
+                        <div class="section-header">
+                            <h2 v-text="$store.getters.activeScopeName">
+                            </h2>
+                        </div>
+
+                        <div>
+                            <task-list-switcher
+                                :tasks="$store.getters.tasksForActiveScope"
+                                :scope="$store.getters.activeScope">
+                            </task-list-switcher>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+        <%= javascript_pack_tag 'application' %>
+    </body>
+</html>

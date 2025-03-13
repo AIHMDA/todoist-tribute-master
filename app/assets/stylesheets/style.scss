@@ -1,0 +1,525 @@
+$top-bar-height: 43px;
+$content-width: 950px;
+$sidebar-left-padding: 35px;
+$content-top-padding: 30px;
+$content-left-padding: 30px;
+$task-indent-padding: 25px;
+
+$checkbox-diameter: 20px;
+$project-icon-diameter: 10px;
+$label-icon-height: 10px;
+$label-icon-width: 14px;
+$autocomplete-row-height: 38px;
+$autocomplete-box-height: (5 * $autocomplete-row-height) + 5px;
+$tasks-dragbar-holder-width: 20px;
+$task-item-height: 47px; // Try not to hardcode... Double lined tasks possible?
+
+$color-red: #db4c3f;
+$color-darker-red: #c53727;
+$color-black-text: #303333;
+$color-very-very-light-gray: #f5f5f5;
+$color-very-light-gray: #eee;
+$color-light-gray: #ddd;
+$color-gray: #bbb;
+
+
+// Styling
+
+.page-background {
+    background-color: #fafafa;
+}
+
+.top-bar {
+    background-color: $color-red;
+    border-bottom: solid 1px #ca2100;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+
+    .top-bar-inner {
+        padding-left: $sidebar-left-padding;
+        color: white;
+    }
+
+    h1 {
+        line-height: 43px;
+        font-size: 20px;
+        font-weight: 800;
+        // text-transform: uppercase;
+    }
+}
+
+.left-menu, .content {
+    padding-top: $top-bar-height + $content-top-padding;
+    color: $color-black-text;
+    font-weight: lighter;
+
+    border-right: 1px solid #f1f1f1;
+}
+
+.left-menu {
+    padding-left: $sidebar-left-padding;
+    padding-right: 20px;
+}
+
+.left-menu .view-link {
+    display: block;
+    padding: 10px 10px 10px 10px;
+
+    font-size: 14px;
+    font-weight: normal;
+
+    span {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    i {
+        color: lighten($color-black-text, 10);
+        font-size: 20px;
+        margin-right: 6px;
+    }
+
+    span.counter {
+        font-weight: 300;
+        font-size: 10px;
+        color: lighten($color-black-text, 50);
+        margin-left: 3px;
+    }
+
+    &:hover, &.is-selected {
+        background-color: #fff;
+    }
+
+    &.is-selected {
+        .title .text {
+            font-weight: 600;
+        }
+    }
+}
+
+.project-icon {
+    display: block;
+    width: $project-icon-diameter;
+    height: $project-icon-diameter;
+    border-radius: $project-icon-diameter / 2;
+}
+
+.project-list-container .resource-item, .autocomplete-item {
+    span.icon-holder {
+        display: inline-block;
+        margin-right: 8px;
+    }
+}
+
+.label-list-container .resource-item {
+    span.icon-holder {
+        margin-right: 8px;
+    }
+}
+
+.resource-list-container {
+    margin-top: 20px;
+}
+
+.resource-list .resource-item {
+    font-size: 14px;
+    position: relative;
+
+    &.is-selected, &:hover {
+        background-color: white;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    span.dragbars-holder {
+        width: 14px;
+        text-align: right;
+    }
+
+    span.text-holder, span.dropdown-container {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    span.counter {
+        font-weight: 300;
+        font-size: 10px;
+        color: lighten($color-black-text, 50);
+        margin-left: 3px;
+    }
+
+    &:hover {
+        .dropdown-toggle {
+            visibility: visible;
+        }
+    }
+
+    .dropdown-toggle {
+        visibility: hidden;
+
+        &:hover, &.is-active {
+            visibility: visible;
+            color: darken($color-light-gray, 20);
+        }
+    }
+
+    $dropdown-container-width: 30px;
+    $dropdown-width: 200px;
+
+    .dropdown-container {
+        position: absolute;
+        width: 30px;
+        text-align: center;
+        right: 0px;
+        color: $color-light-gray;
+    }
+
+    .dropdown-container .dropdown {
+        z-index: 2;
+        position: absolute;
+        left: 0px;
+        top: 20px;
+        width: 200px;
+        background-color: white;
+        border: 1px solid $color-very-light-gray;
+        box-shadow: 0px 1px 6px 0px $color-light-gray;
+        border-radius: 4px;
+        text-align: left;
+    }
+
+    .dropdown-container .dropdown-options {
+        padding: 4px;
+    }
+
+    .dropdown-container .dropdown-options .dropdown-option {
+        color: $color-black-text;
+        padding: 10px 10px 10px 10px;
+        font-size: 13px;
+        &:hover {
+            background-color: #555;
+            color: #eee;
+        }
+
+    }
+}
+
+.content .task-list .drag-item, .left-menu .resource-list .resource-item {
+    & > span {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    &.is-dragged {
+        background-color: $color-light-gray;
+        box-shadow: 0px 0px 5px 0px $color-light-gray;
+    }
+
+    &:hover {
+        .drag-bars { visibility: visible; }
+    }
+
+    // HACK! :hover seems to stick to other elements when dragging/dropping.
+    &:active {
+        .drag-bars { visibility: hidden; }
+    }
+
+    .drag-bars {
+        visibility: hidden;
+        color: $color-light-gray;
+
+        // Hack for wide-font
+        transform: scale(0.5, 1);
+
+        &:hover {
+            cursor: move;
+        }
+    }
+}
+
+.left-menu .add-project {
+    padding-left: 14px;
+}
+
+.content .add-task, .left-menu .add-project {
+    & > span {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    font-size: 13px;
+
+    color: $color-red;
+
+    .icon-holder {
+        margin-right: 5px;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:hover a {
+        text-decoration: underline;
+    }
+
+    span.icon-holder span.add-icon {
+        font-size: 24px;
+        width: $checkbox-diameter;
+        line-height: 40px;
+        text-align: center;
+        display: inline-block;
+    }
+}
+
+.left-menu .resource-form {
+    margin-top: 7px;
+
+    .input-nodes-container {
+        line-height: 18px;
+    }
+}
+
+.content .task-form, .left-menu .resource-form {
+    .input-nodes-container {
+        border-radius: 2px;
+        margin-bottom: 7px;
+        font-size: 14px;
+        width: 100%;
+
+        padding: 6px 6px 6px 10px;
+        font-weight: lighter;
+        position: relative;
+
+        &, &:hover {
+            // Overrides blue focus on hover
+            border: 1px solid $color-light-gray;
+        }
+
+        background-color: white;
+    }
+
+    input.text-input {
+        border: none;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+        font-weight: 300;
+    }
+
+    button, a {
+        font-size: 13px;
+    }
+
+    button {
+        font-weight: bold;
+        background-color: $color-red;
+        color: #fff;
+        padding: 8px 12px 8px 12px;
+        border-radius: 2px;
+        border: none;
+        &:hover {
+            cursor: pointer;
+            background-color: $color-darker-red;
+        }
+    }
+
+    a {
+        color: lighten($color-black-text, 30);
+        padding-left: 5px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+
+.content {
+    // Left padding is applied selectively to components!
+    padding-right: 30px;
+    background-color: #fff;
+
+    .add-task {
+        padding-left: $content-left-padding;
+    }
+}
+
+.content .section-header {
+    padding-left: $content-left-padding;
+    margin-top: 10px;
+    margin-bottom: 15px;
+
+    h2 {
+        font-weight: normal;
+        font-size: 20px;
+    }
+}
+
+.content .task-list-container {
+    padding-bottom: 180px;
+}
+
+.content .task-list {
+    font-size: 14px;
+}
+
+.content .simple-task-list {
+    padding-left: $tasks-dragbar-holder-width + 10px;
+}
+
+.content .task-list .drag-item {
+    position: relative;
+    padding-left: $content-left-padding;
+
+    .dragbars-holder {
+        position: absolute;
+        display: block;
+        left: $content-left-padding - $tasks-dragbar-holder-width;
+        width: $tasks-dragbar-holder-width;
+        line-height: $task-item-height;
+
+        .drag-bars { line-height: $task-item-height; }
+        &:hover {
+            cursor: move;
+        }
+    }
+}
+
+.content .task-list .task-item {
+    padding-top: 13px;
+    padding-bottom: 13px;
+
+    & > span {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .icon-holder {
+        margin-right: 5px;
+    }
+
+    position: relative;
+
+    &:hover {
+        cursor: text;
+    }
+
+    border-bottom: 1px solid $color-very-light-gray;
+
+    span.icon-holder span.checkbox {
+        display: block;
+        border: 1px solid $color-light-gray;
+        width: $checkbox-diameter;
+        height: $checkbox-diameter;
+        border-radius: $checkbox-diameter / 2;
+        background-color: white;
+        transition: background-color 150ms;
+
+        &:hover {
+            cursor: pointer;
+            background-color: lighten($color-very-light-gray, 0.5);
+        }
+
+        &:active {
+            background-image: image-url('checkmark.png');
+            background-size: $checkbox-diameter * 0.5;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    }
+
+    span.text-holder {
+        line-height: 20px;
+    }
+
+    span.text-holder .label-tags {
+        display: block;
+        font-size: 11px;
+        margin-top: 2px;
+    }
+
+    span.right-holder {
+        float: right;
+        line-height: 18px;
+        font-size: 10px;
+        color: $color-gray;
+    }
+
+    span.project-tag > * {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    span.project-tag .project-icon {
+        margin-left: 3px;
+    }
+}
+
+.content .task-form {
+    padding-left: $content-left-padding;
+    margin-top: 7px;
+
+    .input-nodes-container {
+        cursor: text;
+        line-height: 24px;
+
+        input.text-input, .fake-text-input {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        .fake-text-input {
+            position: absolute;
+            left: -100000px;
+            white-space: pre; // Force width to scale with whitespace
+        }
+
+        div.project-pill {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        div.project-pill {
+            display: inline;
+            background-color: $color-red;
+            color: white;
+            border-radius: 2px;
+            padding: 0px 5px 0px 5px;
+            margin-right: 2px;
+        }
+
+        .autocomplete-container {
+            position: absolute;
+            background: white;
+            z-index: 3;
+            height: $autocomplete-box-height;
+            bottom: -$autocomplete-box-height;
+            left: -1px; // Why???
+            width: 80%;
+            border: 1px solid $color-light-gray;
+            box-shadow: 0px 0px 10px 0px $color-light-gray;
+
+            .autocomplete-message {
+                padding: 10px 10px 10px 15px;
+                color: #777;
+            }
+
+            overflow-y: scroll;
+            text-overflow: ellipsis;
+
+            .autocomplete-item {
+                font-size: 12px;
+                height: $autocomplete-row-height;
+                line-height: $autocomplete-row-height;
+                padding-left: 10px;
+                border-bottom: 1px solid $color-light-gray;
+
+                &.is-selected {
+                    background-color: $color-very-light-gray;
+                }
+            }
+        }
+    }
+}
